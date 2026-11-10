@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Maya Bahasa Indonesia: Imbuhan Me- & Kalimat Majemuk Setara (Kelas 5 SD)</title>
+    <style>
+        /* --- RESET & FIXED 16:9 ASPECT RATIO VIEWPORT --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Fredoka', 'Quicksand', 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0c1a24;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #app-scaler {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #app-viewport {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #112634 0%, #1a384c 100%);
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform-origin: center center;
+        }
+
+        /* --- SPLASH SCREEN --- */
+        #splash-screen {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #059669 0%, #0284c7 50%, #4f46e5 100%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        .splash-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 0.5rem 1.4rem;
+            border-radius: 9999px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .splash-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.6rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+
+        .splash-subtitle {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 720px;
+            font-weight: 500;
+        }
+
+        .progress-box {
+            width: 320px;
+            background: rgba(0, 0, 0, 0.3);
+            height: 18px;
+            border-radius: 9px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 9px;
+            transition: width 0.2s ease;
+        }
+
+        .splash-btn {
+            background: #f59e0b;
+            color: #0c1a24;
+            font-size: 1.3rem;
+            font-weight: 800;
+            padding: 0.85rem 3rem;
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
+            transition: transform 0.2s, background 0.2s;
+            display: none;
+        }
+
+        .splash-btn:hover {
+            transform: translateY(-3px) scale(1.04);
+            background: #d97706;
+            color: white;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            height: 62px;
+            background: #0b1923;
+            border-bottom: 2px solid #1e455c;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.25rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .app-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .app-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981, #0284c7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .app-title-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        .app-sub-text {
+            font-size: 0.75rem;
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.4rem;
+            background: #061118;
+            padding: 0.3rem;
+            border-radius: 10px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0.5rem 0.95rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-btn:hover {
+            color: #f8fafc;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-btn.active {
+            background: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            background: #1a384c;
+            border: 1px solid #285473;
+            color: #f8fafc;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #10b981;
+        }
+
+        /* --- MAIN CONTENT LAYOUT --- */
+        main {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #0b1923;
+        }
+
+        .tab-content {
+            position: absolute;
+            inset: 0;
+            padding: 1.1rem;
+            display: none;
+            overflow-y: auto;
+            color: #f8fafc;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .tab-content::-webkit-scrollbar-track {
+            background: #112634;
+        }
+        .tab-content::-webkit-scrollbar-thumb {
+            background: #285473;
+            border-radius: 4px;
+        }
+
+        /* --- TAB 1: TEORI --- */
+        .teori-subnav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtab-btn {
+            background: #1a384c;
+            border: 1px solid #285473;
+            color: #94a3b8;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subtab-btn.active {
+            background: #f59e0b;
+            color: #0c1a24;
+            border-color: #f59e0b;
+        }
+
+        .teori-section-title {
+            font-size: 1.05rem;
+            color: #38bdf8;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .imbuhan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .imbuhan-card {
+            background: #1a384c;
+            border: 2px solid #285473;
+            border-radius: 12px;
+            padding: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .imbuhan-card:hover {
+            transform: translateY(-3px);
+            border-color: #38bdf8;
+        }
+
+        .imbuhan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .imbuhan-badge {
+            background: #10b981;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 900;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .imbuhan-card h4 {
+            font-size: 0.95rem;
+            color: #f59e0b;
+        }
+
+        .imbuhan-card p {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+
+        .example-pill {
+            background: #0b1923;
+            border: 1px solid #285473;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        .majemuk-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .majemuk-card {
+            background: #1a384c;
+            border-left: 5px solid #0284c7;
+            border-radius: 10px;
+            padding: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .majemuk-card h4 {
+            font-size: 0.95rem;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .majemuk-card p {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+
+        /* --- TAB 2: PROSEDUR --- */
+        .procedure-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .step-card {
+            background: #1a384c;
+            padding: 0.9rem 1.1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            border: 1px solid #285473;
+        }
+
+        .step-num {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #10b981, #0284c7);
+            color: #ffffff;
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .step-info h4 {
+            font-size: 0.98rem;
+            color: #f8fafc;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-info p {
+            font-size: 0.83rem;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+
+        /* --- TAB 3: SIMULASI --- */
+        .sim-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            height: 100%;
+        }
+
+        .sim-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a384c;
+            padding: 0.45rem 0.9rem;
+            border-radius: 10px;
+            border: 1px solid #285473;
+        }
+
+        .sim-mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mode-btn {
+            background: #0b1923;
+            color: #94a3b8;
+            border: 1px solid #285473;
+            padding: 0.4rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .mode-btn.active {
+            background: #10b981;
+            color: #ffffff;
+            border-color: #10b981;
+        }
+
+        .sim-score-box {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #f59e0b;
+            background: #0b1923;
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            border: 1px solid #285473;
+        }
+
+        /* MODE 1: MESIN IMBUHAN ME- */
+        .sim-area-imbuhan {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            flex: 1;
+            background: #1a384c;
+            border-radius: 12px;
+            padding: 1.1rem;
+            border: 1px solid #285473;
+        }
+
+        .machine-stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            background: #0b1923;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 2px dashed #285473;
+        }
+
+        .word-box-base {
+            background: #0284c7;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 900;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+        }
+
+        .plus-sign {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #f59e0b;
+        }
+
+        .prefix-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .prefix-btn {
+            background: #112634;
+            border: 2px solid #285473;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 800;
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .prefix-btn:hover {
+            border-color: #10b981;
+            background: #1a384c;
+            transform: scale(1.05);
+        }
+
+        .result-display {
+            background: #0b1923;
+            border: 2px solid #10b981;
+            padding: 0.85rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #34d399;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* MODE 2: PABRIK KALIMAT MAJEMUK SETARA */
+        .sim-area-majemuk {
+            display: none;
+            flex-direction: column;
+            gap: 0.85rem;
+            flex: 1;
+            background: #1a384c;
+            border-radius: 12px;
+            padding: 1.1rem;
+            border: 1px solid #285473;
+        }
+
+        .clause-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #0b1923;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #285473;
+        }
+
+        .clause-box {
+            flex: 1;
+            background: #1a384c;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            font-size: 0.88rem;
+            color: white;
+            line-height: 1.35;
+        }
+
+        .conjunction-slot {
+            width: 140px;
+            height: 48px;
+            background: #112634;
+            border: 2px dashed #38bdf8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #38bdf8;
+            font-size: 0.95rem;
+        }
+
+        .conjunction-options {
+            display: flex;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+
+        .conj-btn {
+            background: #0b1923;
+            border: 2px solid #285473;
+            color: #f8fafc;
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .conj-btn:hover {
+            border-color: #f59e0b;
+            background: #1a384c;
+        }
+
+        .sim-feedback-box {
+            background: rgba(11, 25, 35, 0.9);
+            border: 2px solid #38bdf8;
+            padding: 0.65rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .sim-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .reset-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .reset-btn:hover { background: #dc2626; }
+
+        /* --- TAB 4: LKPD --- */
+        .lkpd-container {
+            max-width: 920px;
+            margin: 0 auto;
+            background: #1a384c;
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid #285473;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lkpd-header {
+            border-bottom: 2px dashed #285473;
+            padding-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lkpd-inputs {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .lkpd-field {
+            background: #0b1923;
+            border: 1px solid #285473;
+            color: white;
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            flex: 1;
+        }
+
+        .lkpd-q-box {
+            background: #0b1923;
+            padding: 0.85rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            border: 1px solid #285473;
+            transition: border-color 0.2s;
+        }
+
+        .lkpd-q-box.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.05); }
+        .lkpd-q-box.incorrect { border-color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+
+        .lkpd-q-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #38bdf8;
+            line-height: 1.35;
+        }
+
+        .lkpd-options {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.82rem;
+            margin-top: 0.2rem;
+            flex-wrap: wrap;
+        }
+
+        .lkpd-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+        }
+
+        .lkpd-text-input {
+            background: #1a384c;
+            border: 1px solid #285473;
+            color: #f59e0b;
+            padding: 0.4rem 0.65rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            width: 220px;
+        }
+
+        .lkpd-explanation {
+            font-size: 0.78rem;
+            margin-top: 0.3rem;
+            padding: 0.45rem 0.65rem;
+            border-radius: 6px;
+            display: none;
+            line-height: 1.35;
+        }
+
+        .lkpd-explanation.show-correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+
+        .lkpd-explanation.show-incorrect {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+        }
+
+        .grade-badge {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 0.35rem 0.9rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* --- TAB 5: PENGEMBANG --- */
+        .dev-card {
+            max-width: 780px;
+            margin: 0 auto;
+            background: #1a384c;
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid #285473;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .dev-avatar {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, #10b981, #0284c7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .dev-details h3 {
+            font-size: 1.3rem;
+            color: #38bdf8;
+            margin-bottom: 0.2rem;
+        }
+
+        .dev-details p {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        .cp-box {
+            margin-top: 0.75rem;
+            background: #0b1923;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            border-left: 4px solid #10b981;
+            line-height: 1.4;
+        }
+
+        /* --- TOAST NOTIFICATION --- */
+        #toast {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 0.65rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 50;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-scaler">
+        <!-- MAIN 16:9 VIEWPORT CONTAINER -->
+        <div id="app-viewport">
+            
+            <!-- SPLASH SCREEN -->
+            <div id="splash-screen">
+                <div class="splash-badge">VIRTUAL LAB BAHASA INDONESIA SD - FASE C</div>
+                <h1 class="splash-title">Lab Imbuhan & Kalimat Majemuk ✍️</h1>
+                <p class="splash-subtitle">Eksplorasi Perubahan Kata Imbuhan me- dan Penggabungan Kalimat Majemuk Setara!</p>
+                
+                <div class="progress-box" id="progress-box">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+
+                <button class="splash-btn" id="start-btn">🚀 Mulai Belajar</button>
+            </div>
+
+            <!-- HEADER & NAVIGATION -->
+            <header>
+                <div class="app-brand">
+                    <div class="app-brand-icon">📚</div>
+                    <div>
+                        <div class="app-title-text">Lab Tata Bahasa Indonesia</div>
+                        <div class="app-sub-text">Kelas 5 SD • Imbuhan me- & Kalimat Majemuk</div>
+                    </div>
+                </div>
+
+                <nav>
+                    <button class="nav-btn active" data-tab="teori">📚 Teori</button>
+                    <button class="nav-btn" data-tab="prosedur">📋 Prosedur</button>
+                    <button class="nav-btn" data-tab="simulasi">🎮 Simulasi</button>
+                    <button class="nav-btn" data-tab="lkpd">📝 LKPD</button>
+                    <button class="nav-btn" data-tab="pengembang">👤 Pengembang</button>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn" id="sound-toggle" title="Toggle Efek Suara">🔊</button>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT AREA -->
+            <main>
+
+                <!-- TAB 1: TEORI -->
+                <div class="tab-content active" id="tab-teori">
+                    <div class="teori-subnav">
+                        <button class="subtab-btn active" id="subtab-imbuhan-btn">🔤 Kaidah Imbuhan me-</button>
+                        <button class="subtab-btn" id="subtab-majemuk-btn">🔗 Kalimat Majemuk Setara</button>
+                    </div>
+
+                    <!-- SUBTAB 1: IMBUHAN ME- -->
+                    <div id="subtab-imbuhan-content">
+                        <div class="teori-section-title">✨ Perubahan Bentuk Imbuhan me- Berdasarkan Huruf Awal Kata Dasar</div>
+                        <div class="imbuhan-grid">
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>me- + (l, m, n, r, w, y)</h4>
+                                    <span class="imbuhan-badge">Tetap me-</span>
+                                </div>
+                                <p>Tidak mengalami perubahan bentuk saat bertemu huruf l, m, n, r, w, y.</p>
+                                <div class="example-pill">me- + lukis ➔ melukis</div>
+                                <div class="example-pill">me- + rawat ➔ merawat</div>
+                            </div>
+
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>me- + (b, f, p, v)</h4>
+                                    <span class="imbuhan-badge">Berubah mem-</span>
+                                </div>
+                                <p>Berubah menjadi <strong>mem-</strong>. Khusus huruf <strong>p</strong> akan luluh jika diawali konsonan tunggal.</p>
+                                <div class="example-pill">me- + baca ➔ membaca</div>
+                                <div class="example-pill">me- + potong ➔ memotong (p luluh)</div>
+                            </div>
+
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>me- + (c, d, j, t, z)</h4>
+                                    <span class="imbuhan-badge">Berubah men-</span>
+                                </div>
+                                <p>Berubah menjadi <strong>men-</strong>. Khusus huruf <strong>t</strong> akan luluh.</p>
+                                <div class="example-pill">me- + cari ➔ mencari</div>
+                                <div class="example-pill">me- + tulis ➔ menulis (t luluh)</div>
+                            </div>
+
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>me- + (g, h, k, q, vokal)</h4>
+                                    <span class="imbuhan-badge">Berubah meng-</span>
+                                </div>
+                                <p>Berubah menjadi <strong>meng-</strong> saat bertemu huruf vokal (a,i,u,e,o) dan g, h, k. Huruf <strong>k</strong> luluh.</p>
+                                <div class="example-pill">me- + ambil ➔ mengambil</div>
+                                <div class="example-pill">me- + kirim ➔ mengirim (k luluh)</div>
+                            </div>
+
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>me- + (s)</h4>
+                                    <span class="imbuhan-badge">Berubah meny-</span>
+                                </div>
+                                <p>Berubah menjadi <strong>meny-</strong> dan huruf awal <strong>s</strong> akan luluh.</p>
+                                <div class="example-pill">me- + sapu ➔ menyapu (s luluh)</div>
+                                <div class="example-pill">me- + siram ➔ menyiram (s luluh)</div>
+                            </div>
+
+                            <div class="imbuhan-card">
+                                <div class="imbuhan-header">
+                                    <h4>Catatan Khusus (KPSP)</h4>
+                                    <span class="imbuhan-badge">Hukum Peluluhan</span>
+                                </div>
+                                <p>Huruf <strong>K, P, S, T</strong> meluluh jika diikuti huruf vokal (contoh: <em>me- + tulis ➔ menulis</em>).</p>
+                                <div class="example-pill">Pengecualian: me- + ketik ➔ mengetik</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTAB 2: KALIMAT MAJEMUK SETARA -->
+                    <div id="subtab-majemuk-content" style="display: none;">
+                        <div class="teori-section-title">🔗 Kata Hubung (Konjungsi) Kalimat Majemuk Setara</div>
+                        <div class="majemuk-cards-grid">
+                            <div class="majemuk-card">
+                                <h4>➕ Dan (Penggabungan)</h4>
+                                <p>Menghubungkan dua klausa yang sejalan atau memiliki kedudukan setara.</p>
+                                <div class="example-pill">Budi membaca buku <strong>dan</strong> Ani menulis puisi.</div>
+                            </div>
+
+                            <div class="majemuk-card" style="border-left-color: #ef4444;">
+                                <h4>⚡ Tetapi (Pertentangan)</h4>
+                                <p>Menghubungkan dua klausa yang berlawanan atau bertentangan.</p>
+                                <div class="example-pill">Doni ingin bermain <strong>tetapi</strong> hujan turun lebat.</div>
+                            </div>
+
+                            <div class="majemuk-card" style="border-left-color: #f59e0b;">
+                                <h4>❓ Atau (Pemilihan)</h4>
+                                <p>Menghubungkan dua pilihan tindakan atau keadaan.</p>
+                                <div class="example-pill">Kamu boleh minum teh <strong>atau</strong> memilih jus buah.</div>
+                            </div>
+
+                            <div class="majemuk-card" style="border-left-color: #10b981;">
+                                <h4>➡️ Sehingga (Sebab-Akibat)</h4>
+                                <p>Menyatakan hubungan sebab dan akibat antara dua kejadian.</p>
+                                <div class="example-pill">Siti belajar tekun <strong>sehingga</strong> ia mendapat nilai 100.</div>
+                            </div>
+
+                            <div class="majemuk-card" style="border-left-color: #8b5cf6;">
+                                <h4>⏱️ Lalu / Kemudian (Urutan Waktu)</h4>
+                                <p>Menghubungkan dua kejadian yang terjadi secara berurutan.</p>
+                                <div class="example-pill">Ibu mencuci sayuran <strong>lalu</strong> memasaknya di dapur.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: PROSEDUR -->
+                <div class="tab-content" id="tab-prosedur">
+                    <div class="procedure-container">
+                        <div class="teori-section-title">📌 Prosedur Penggunaan Lab Maya</div>
+                        
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <div class="step-info">
+                                <h4>Pelajari Kaidah Tata Bahasa (Teori)</h4>
+                                <p>Buka tab <strong>Teori</strong> untuk memahami rumus perubahan imbuhan <em>me-</em> serta fungsi kata hubung pada kalimat majemuk setara.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <div class="step-info">
+                                <h4>Uji Coba Pada Mesin Simulasi Interaktif</h4>
+                                <p>Masuk ke tab <strong>Simulasi</strong>. Pilih <strong>Mode 1 (Mesin Imbuhan)</strong> untuk membentuk kata berimbuhan, atau <strong>Mode 2 (Pabrik Kalimat)</strong> untuk menggabungkan klausa.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <div class="step-info">
+                                <h4>Kerjakan 10 Soal Evaluasi Digital (LKPD)</h4>
+                                <p>Pindah ke tab <strong>LKPD</strong>, lengkapi identitas siswa, dan jawab 10 variasi soal (pilihan ganda, isian pembentukan kata, dan penggabungan kalimat).</p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-num">4</div>
+                            <div class="step-info">
+                                <h4>Pemeriksaan Nilai & Umpan Balik Instan</h4>
+                                <p>Tekan tombol <strong>Kirim & Periksa Nilai</strong> untuk memperoleh nilai otomatis (skala 0-100) serta penjelasan jawaban lengkap.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SIMULASI -->
+                <div class="tab-content" id="tab-simulasi">
+                    <div class="sim-container">
+                        <div class="sim-header-bar">
+                            <div class="sim-mode-toggle">
+                                <button class="mode-btn active" id="btn-mode-imbuhan">Mode 1: Mesin Imbuhan me-</button>
+                                <button class="mode-btn" id="btn-mode-majemuk">Mode 2: Pabrik Kalimat Majemuk</button>
+                            </div>
+                            <div class="sim-score-box">Skor: <span id="sim-score">0</span></div>
+                            <button class="reset-btn" id="sim-reset-btn">🔄 Reset Simulasi</button>
+                        </div>
+
+                        <!-- MODE 1: MESIN IMBUHAN ME- -->
+                        <div class="sim-area-imbuhan" id="mode-imbuhan-area">
+                            <div style="font-size: 0.9rem; color: #38bdf8; font-weight: bold;">
+                                ⚙️ Pembentukan Kata Berimbuhan (Pilih imbuhan awal yang tepat untuk kata dasar di bawah):
+                            </div>
+
+                            <div class="machine-stage">
+                                <div class="word-box-base" id="base-word-display">baca</div>
+                                <div class="plus-sign">+</div>
+                                <div style="font-size: 0.9rem; color: #cbd5e1; font-weight: bold;">(Imbuhan me-?)</div>
+                            </div>
+
+                            <div class="prefix-options">
+                                <button class="prefix-btn" onclick="checkPrefix('me-')">me-</button>
+                                <button class="prefix-btn" onclick="checkPrefix('mem-')">mem-</button>
+                                <button class="prefix-btn" onclick="checkPrefix('men-')">men-</button>
+                                <button class="prefix-btn" onclick="checkPrefix('meng-')">meng-</button>
+                                <button class="prefix-btn" onclick="checkPrefix('meny-')">meny-</button>
+                            </div>
+
+                            <div class="result-display" id="imbuhan-result-box">
+                                Hasil Kata: ?
+                            </div>
+
+                            <div class="sim-feedback-box" id="imbuhan-feedback">
+                                💡 Klik salah satu tombol bentuk imbuhan di atas untuk menguji hukum perubahan kata dasar!
+                            </div>
+                        </div>
+
+                        <!-- MODE 2: PABRIK KALIMAT MAJEMUK SETARA -->
+                        <div class="sim-area-majemuk" id="mode-majemuk-area">
+                            <div style="font-size: 0.9rem; color: #38bdf8; font-weight: bold;">
+                                🔗 Penggabungan Dua Kalimat Tunggal Menjadi Kalimat Majemuk Setara:
+                            </div>
+
+                            <div class="clause-container">
+                                <div class="clause-box" id="clause-1">Klausa 1</div>
+                                <div class="conjunction-slot" id="conj-slot">[ ? ]</div>
+                                <div class="clause-box" id="clause-2">Klausa 2</div>
+                            </div>
+
+                            <div class="conjunction-options">
+                                <button class="conj-btn" onclick="checkConjunction('dan')">dan</button>
+                                <button class="conj-btn" onclick="checkConjunction('tetapi')">tetapi</button>
+                                <button class="conj-btn" onclick="checkConjunction('atau')">atau</button>
+                                <button class="conj-btn" onclick="checkConjunction('sehingga')">sehingga</button>
+                                <button class="conj-btn" onclick="checkConjunction('lalu')">lalu</button>
+                            </div>
+
+                            <div class="sim-feedback-box" id="majemuk-feedback">
+                                💡 Pilih kata hubung (konjungsi) yang paling tepat untuk menggabungkan kedua klausa!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: LKPD -->
+                <div class="tab-content" id="tab-lkpd">
+                    <div class="lkpd-container">
+                        <div class="lkpd-header">
+                            <div>
+                                <h3 style="color: #38bdf8;">Digital LKPD: Imbuhan me- & Kalimat Majemuk Setara</h3>
+                                <p style="font-size: 0.8rem; color: #94a3b8;">Lembar Kerja Peserta Didik (10 Variasi Soal Bahasa Indonesia Kelas 5 SD)</p>
+                            </div>
+                            <div class="grade-badge" id="grade-badge">Nilai: 0 / 100</div>
+                        </div>
+
+                        <div class="lkpd-inputs">
+                            <input type="text" id="student-name" class="lkpd-field" placeholder="Nama Siswa..." />
+                            <input type="text" id="student-class" class="lkpd-field" placeholder="Kelas..." />
+                        </div>
+
+                        <!-- Q1 -->
+                        <div class="lkpd-q-box" id="box-q1">
+                            <div class="lkpd-q-title">1. Kata dasar "tulis" jika diberi imbuhan me- akan berubah menjadi...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q1" value="menulis"> menulis</label>
+                                <label><input type="radio" name="q1" value="mentulis"> mentulis</label>
+                                <label><input type="radio" name="q1" value="memtulis"> memtulis</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q1"></div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="lkpd-q-box" id="box-q2">
+                            <div class="lkpd-q-title">2. Bentuk imbuhan me- yang tepat saat bertemu kata dasar "sapu" adalah...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q2" value="menyapu"> menyapu</label>
+                                <label><input type="radio" name="q2" value="mensapu"> mensapu</label>
+                                <label><input type="radio" name="q2" value="mesapu"> mesapu</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q2"></div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="lkpd-q-box" id="box-q3">
+                            <div class="lkpd-q-title">3. "Ayah membaca koran _____ Ibu memasak di dapur." Kata hubung penggabungan yang tepat adalah...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q3" value="dan"> dan</label>
+                                <label><input type="radio" name="q3" value="tetapi"> tetapi</label>
+                                <label><input type="radio" name="q3" value="atau"> atau</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q3"></div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="lkpd-q-box" id="box-q4">
+                            <div class="lkpd-q-title">4. Ketik bentuk kata berimbuhan dari: <em>me- + kirim = _______</em></div>
+                            <div style="margin-top: 0.3rem;">
+                                <input type="text" id="ans-q4" class="lkpd-text-input" placeholder="Ketik kata hasil..." />
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q4"></div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="lkpd-q-box" id="box-q5">
+                            <div class="lkpd-q-title">5. Ketik bentuk kata berimbuhan dari: <em>me- + potong = _______</em></div>
+                            <div style="margin-top: 0.3rem;">
+                                <input type="text" id="ans-q5" class="lkpd-text-input" placeholder="Ketik kata hasil..." />
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q5"></div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="lkpd-q-box" id="box-q6">
+                            <div class="lkpd-q-title">6. "Roni ingin membeli sepatu baru, _____ uangnya belum cukup." Kata hubung pertentangan yang tepat adalah...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q6" value="tetapi"> tetapi</label>
+                                <label><input type="radio" name="q6" value="dan"> dan</label>
+                                <label><input type="radio" name="q6" value="sehingga"> sehingga</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q6"></div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="lkpd-q-box" id="box-q7">
+                            <div class="lkpd-q-title">7. Benar atau Salah: Huruf awal K, P, S, T pada kata dasar akan luluh jika diberi imbuhan me-.</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q7" value="Benar"> Benar</label>
+                                <label><input type="radio" name="q7" value="Salah"> Salah</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q7"></div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="lkpd-q-box" id="box-q8">
+                            <div class="lkpd-q-title">8. "Kamu bisa mengerjakan tugas ini sekarang _____ nanti sore." Konjungsi pemilihan yang pas yaitu...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q8" value="atau"> atau</label>
+                                <label><input type="radio" name="q8" value="tetapi"> tetapi</label>
+                                <label><input type="radio" name="q8" value="lalu"> lalu</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q8"></div>
+                        </div>
+
+                        <!-- Q9 -->
+                        <div class="lkpd-q-box" id="box-q9">
+                            <div class="lkpd-q-title">9. Manakah di bawah ini yang merupakan kalimat majemuk setara sebab-akibat?</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q9" value="Dini belajar giat sehingga ia juara kelas."> Dini belajar giat sehingga ia juara kelas.</label>
+                                <label><input type="radio" name="q9" value="Budi makan nasi dan minum es teh."> Budi makan nasi dan minum es teh.</label>
+                                <label><input type="radio" name="q9" value="Ayah datang atau ibu pergi."> Ayah datang atau ibu pergi.</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q9"></div>
+                        </div>
+
+                        <!-- Q10 -->
+                        <div class="lkpd-q-box" id="box-q10">
+                            <div class="lkpd-q-title">10. Penggunaan imbuhan me- yang BENAR pada kalimat di bawah ini adalah...</div>
+                            <div class="lkpd-options">
+                                <label><input type="radio" name="q10" value="Adik menggambar pemandangan indah."> Adik menggambar pemandangan indah.</label>
+                                <label><input type="radio" name="q10" value="Kakak memgambar bunga matahari."> Kakak memgambar bunga matahari.</label>
+                                <label><input type="radio" name="q10" value="Siti mengtulis surat cinta."> Siti mengtulis surat cinta.</label>
+                            </div>
+                            <div class="lkpd-explanation" id="exp-q10"></div>
+                        </div>
+
+                        <div class="sim-controls">
+                            <button class="reset-btn" id="reset-lkpd-btn">🔄 Reset LKPD</button>
+                            <button class="btn-primary" id="submit-lkpd-btn" style="background: #10b981; color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: bold; cursor: pointer;">💾 Kirim & Periksa Nilai</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: PENGEMBANG -->
+                <div class="tab-content" id="tab-pengembang">
+                    <div class="dev-card">
+                        <div class="dev-avatar">✍️</div>
+                        <div class="dev-details">
+                            <h3>Pengembang Lab Maya Bahasa Indonesia</h3>
+                            <p><strong>Mata Pelajaran:</strong> Bahasa Indonesia (Sekolah Dasar)</p>
+                            <p><strong>Materi:</strong> Imbuhan me- & Kalimat Majemuk Setara</p>
+                            <p><strong>Fase/Kelas:</strong> Fase C / Kelas 5 SD</p>
+                            <div class="cp-box">
+                                <strong>Capaian Pembelajaran (CP):</strong> Peserta didik mampu menganalisis kaidah pembentukan kata berimbuhan <em>me-</em> (termasuk hukum peluluhan KPSP) serta mengonstruksi kalimat majemuk setara menggunakan kata hubung yang tepat (dan, tetapi, atau, sehingga, lalu) secara efektif dalam komunikasi lisan maupun tulisan.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast">Message</div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* --- RESPONSIVE 16:9 VIEWPORT SCALER --- */
+        function autoScaleViewport() {
+            const scaler = document.getElementById('app-scaler');
+            const viewport = document.getElementById('app-viewport');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            const targetWidth = 1280;
+            const targetHeight = 720;
+
+            const scaleX = windowWidth / targetWidth;
+            const scaleY = windowHeight / targetHeight;
+            const scale = Math.min(scaleX, scaleY);
+
+            viewport.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', autoScaleViewport);
+        window.addEventListener('load', autoScaleViewport);
+
+        /* --- OFFLINE WEB AUDIO SYNTHESIZER --- */
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            }
+
+            playClick() {
+                if (!this.enabled) return;
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.05);
+            }
+
+            playSuccess() {
+                if (!this.enabled) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.08);
+                osc.frequency.setValueAtTime(783.99, now + 0.16);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            }
+
+            playError() {
+                if (!this.enabled) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.linearRampToValueAtTime(110, now + 0.15);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.15);
+            }
+        }
+
+        const sound = new SoundEngine();
+
+        /* --- SPLASH SCREEN LOGIC --- */
+        window.addEventListener('load', () => {
+            const progressBar = document.getElementById('progress-bar');
+            const startBtn = document.getElementById('start-btn');
+            const progressBox = document.getElementById('progress-box');
+
+            let progress = 0;
+            const timer = setInterval(() => {
+                progress += 25;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+
+                if (progress === 100) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        progressBox.style.display = 'none';
+                        startBtn.style.display = 'inline-block';
+                    }, 300);
+                }
+            }, 100);
+        });
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            sound.playSuccess();
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => { splash.style.visibility = 'hidden'; }, 500);
+        });
+
+        // Sound Toggle Button
+        const soundBtn = document.getElementById('sound-toggle');
+        soundBtn.addEventListener('click', () => {
+            sound.enabled = !sound.enabled;
+            soundBtn.textContent = sound.enabled ? '🔊' : '🔇';
+            showToast(sound.enabled ? 'Suara Aktif' : 'Suara Diheningkan');
+        });
+
+        /* --- NAVIGATION TABS --- */
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sound.playClick();
+                const targetTab = btn.getAttribute('data-tab');
+
+                navButtons.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(`tab-${targetTab}`).classList.add('active');
+            });
+        });
+
+        // SUBTABS IN TEORI
+        const subtabImbuhanBtn = document.getElementById('subtab-imbuhan-btn');
+        const subtabMajemukBtn = document.getElementById('subtab-majemuk-btn');
+        const imbuhanContent = document.getElementById('subtab-imbuhan-content');
+        const majemukContent = document.getElementById('subtab-majemuk-content');
+
+        subtabImbuhanBtn.addEventListener('click', () => {
+            sound.playClick();
+            subtabImbuhanBtn.classList.add('active');
+            subtabMajemukBtn.classList.remove('active');
+            imbuhanContent.style.display = 'block';
+            majemukContent.style.display = 'none';
+        });
+
+        subtabMajemukBtn.addEventListener('click', () => {
+            sound.playClick();
+            subtabMajemukBtn.classList.add('active');
+            subtabImbuhanBtn.classList.remove('active');
+            majemukContent.style.display = 'block';
+            imbuhanContent.style.display = 'none';
+        });
+
+        /* --- SIMULATION LOGIC --- */
+        let simScore = 0;
+
+        // MODE 1 DATA: IMBUHAN ME-
+        const imbuhanQuestions = [
+            { base: 'baca', correctPrefix: 'mem-', result: 'membaca', exp: 'Benda diawali huruf B ➔ imbuhan berubah menjadi MEM-.' },
+            { base: 'tulis', correctPrefix: 'men-', result: 'menulis', exp: 'Kata diawali T ➔ berubah MEN- dan huruf T meluluh.' },
+            { base: 'kirim', correctPrefix: 'meng-', result: 'mengirim', exp: 'Kata diawali K ➔ berubah MENG- dan huruf K meluluh.' },
+            { base: 'sapu', correctPrefix: 'meny-', result: 'menyapu', exp: 'Kata diawali S ➔ berubah MENY- dan huruf S meluluh.' },
+            { base: 'lukis', correctPrefix: 'me-', result: 'melukis', exp: 'Kata diawali L ➔ imbuhan tetap ME-.' },
+            { base: 'potong', correctPrefix: 'mem-', result: 'memotong', exp: 'Kata diawali P ➔ berubah MEM- dan huruf P meluluh.' }
+        ];
+
+        let currentImbuhanIdx = 0;
+
+        function loadImbuhanQuestion() {
+            const q = imbuhanQuestions[currentImbuhanIdx];
+            document.getElementById('base-word-display').textContent = q.base;
+            document.getElementById('imbuhan-result-box').textContent = 'Hasil Kata: ?';
+            document.getElementById('imbuhan-feedback').innerHTML = `💡 Pilih bentuk imbuhan yang tepat untuk kata dasar <strong>"${q.base}"</strong>.`;
+        }
+
+        function checkPrefix(selectedPrefix) {
+            const q = imbuhanQuestions[currentImbuhanIdx];
+            if (selectedPrefix === q.correctPrefix) {
+                sound.playSuccess();
+                simScore += 15;
+                document.getElementById('sim-score').textContent = simScore;
+                document.getElementById('imbuhan-result-box').textContent = `Hasil Kata: ${q.result}`;
+                document.getElementById('imbuhan-feedback').innerHTML = `✅ <strong>Benar!</strong> ${q.exp}`;
+                showToast(`✅ Benar! Kata hasil: ${q.result} (+15 Skor)`);
+
+                currentImbuhanIdx = (currentImbuhanIdx + 1) % imbuhanQuestions.length;
+                setTimeout(loadImbuhanQuestion, 2000);
+            } else {
+                sound.playError();
+                document.getElementById('imbuhan-feedback').innerHTML = `❌ <strong>Kurang tepat.</strong> Imbuhan <em>${selectedPrefix}</em> tidak cocok untuk kata dasar <strong>"${q.base}"</strong>.`;
+                showToast('❌ Coba pilih imbuhan lain!');
+            }
+        }
+
+        // MODE 2 DATA: KALIMAT MAJEMUK SETARA
+        const majemukQuestions = [
+            { c1: 'Adik menggambar pemandangan', c2: 'Kakak mewarnai gambar tersebut.', correctConj: 'dan', exp: 'Kedua kejadian terjadi secara sejalan (Penggabungan).' },
+            { c1: 'Budi ingin pergi berenang', c2: 'cuaca di luar sedang hujan deras.', correctConj: 'tetapi', exp: 'Dua keadaan saling berlawanan (Pertentangan).' },
+            { c1: 'Kamu bisa memilih jus mangga', c2: 'memilih es teh manis.', correctConj: 'atau', exp: 'Terdapat dua pilihan tindakan (Pemilihan).' },
+            { c1: 'Siti belajar dengan tekun', c2: 'ia berhasil mendapat nilai 100.', correctConj: 'sehingga', exp: 'Hubungan sebab dan akibat.' },
+            { c1: 'Ibu mencuci buah apel', c2: 'memotongnya menjadi bagian kecil.', correctConj: 'lalu', exp: 'Dua tindakan berurutan secara waktu.' }
+        ];
+
+        let currentMajemukIdx = 0;
+
+        function loadMajemukQuestion() {
+            const q = majemukQuestions[currentMajemukIdx];
+            document.getElementById('clause-1').textContent = q.c1;
+            document.getElementById('clause-2').textContent = q.c2;
+            document.getElementById('conj-slot').textContent = '[ ? ]';
+            document.getElementById('majemuk-feedback').innerHTML = `💡 Pilih kata hubung untuk menggabungkan klausa 1 dan klausa 2.`;
+        }
+
+        function checkConjunction(selectedConj) {
+            const q = majemukQuestions[currentMajemukIdx];
+            document.getElementById('conj-slot').textContent = selectedConj;
+
+            if (selectedConj === q.correctConj) {
+                sound.playSuccess();
+                simScore += 20;
+                document.getElementById('sim-score').textContent = simScore;
+                document.getElementById('majemuk-feedback').innerHTML = `✅ <strong>Tepat Sekali!</strong> ${q.exp}<br><em>"${q.c1} <strong>${selectedConj}</strong> ${q.c2}"</em>`;
+                showToast(`✅ Kalimat Majemuk Setara Benar! (+20 Skor)`);
+
+                currentMajemukIdx = (currentMajemukIdx + 1) % majemukQuestions.length;
+                setTimeout(loadMajemukQuestion, 2200);
+            } else {
+                sound.playError();
+                document.getElementById('majemuk-feedback').innerHTML = `❌ <strong>Kurang pas.</strong> Kata hubung <em>"${selectedConj}"</em> kurang cocok untuk konteks kedua kalimat ini.`;
+                showToast('❌ Pilih konjungsi lain!');
+            }
+        }
+
+        // SIMULATION MODE SWITCHING
+        document.getElementById('btn-mode-imbuhan').addEventListener('click', () => {
+            sound.playClick();
+            document.getElementById('btn-mode-imbuhan').classList.add('active');
+            document.getElementById('btn-mode-majemuk').classList.remove('active');
+            document.getElementById('mode-imbuhan-area').style.display = 'flex';
+            document.getElementById('mode-majemuk-area').style.display = 'none';
+        });
+
+        document.getElementById('btn-mode-majemuk').addEventListener('click', () => {
+            sound.playClick();
+            document.getElementById('btn-mode-majemuk').classList.add('active');
+            document.getElementById('btn-mode-imbuhan').classList.remove('active');
+            document.getElementById('mode-imbuhan-area').style.display = 'none';
+            document.getElementById('mode-majemuk-area').style.display = 'flex';
+            loadMajemukQuestion();
+        });
+
+        document.getElementById('sim-reset-btn').addEventListener('click', () => {
+            sound.playClick();
+            simScore = 0;
+            currentImbuhanIdx = 0;
+            currentMajemukIdx = 0;
+            document.getElementById('sim-score').textContent = simScore;
+            loadImbuhanQuestion();
+            showToast('Simulasi Di-reset');
+        });
+
+        loadImbuhanQuestion();
+
+        /* --- LKPD EVALUATION LOGIC (10 QUESTIONS) --- */
+        const lkpdAnswers = {
+            q1: { ans: 'menulis', exp: 'Kata dasar "tulis" diawali huruf T, sehingga berubah menjadi men- dan T meluluh menjadi "menulis".' },
+            q2: { ans: 'menyapu', exp: 'Kata dasar "sapu" diawali huruf S, sehingga berubah menjadi meny- dan S meluluh menjadi "menyapu".' },
+            q3: { ans: 'dan', exp: 'Konjungsi "dan" digunakan untuk menyatakan penggabungan dua hal setara.' },
+            q4: { ans: 'mengirim', exp: 'me- + kirim = mengirim (huruf K meluluh menjadi meng-).' },
+            q5: { ans: 'memotong', exp: 'me- + potong = memotong (huruf P meluluh menjadi mem-).' },
+            q6: { ans: 'tetapi', exp: 'Konjungsi "tetapi" digunakan untuk menyatakan pertentangan.' },
+            q7: { ans: 'Benar', exp: 'Hukum KPSP: Huruf K, P, S, T meluluh saat diberi imbuhan me- (diikuti vokal).' },
+            q8: { ans: 'atau', exp: 'Konjungsi "atau" digunakan untuk menyatakan pemilihan.' },
+            q9: { ans: 'Dini belajar giat sehingga ia juara kelas.', exp: 'Kata "sehingga" menandakan hubungan sebab-akibat.' },
+            q10: { ans: 'Adik menggambar pemandangan indah.', exp: 'me- + gambar = menggambar (bentuk meng- yang benar).' }
+        };
+
+        document.getElementById('submit-lkpd-btn').addEventListener('click', () => {
+            const name = document.getElementById('student-name').value.trim();
+            const cls = document.getElementById('student-class').value.trim();
+
+            if (!name || !cls) {
+                sound.playError();
+                showToast('⚠️ Isi Nama dan Kelas Terlebih Dahulu!');
+                return;
+            }
+
+            let correctCount = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                const qKey = `q${i}`;
+                let userAns = '';
+
+                if (i === 4 || i === 5) {
+                    userAns = document.getElementById(`ans-${qKey}`).value.trim().toLowerCase();
+                } else {
+                    userAns = document.querySelector(`input[name="${qKey}"]:checked`)?.value;
+                }
+
+                const box = document.getElementById(`box-${qKey}`);
+                const exp = document.getElementById(`exp-${qKey}`);
+                const answerData = lkpdAnswers[qKey];
+
+                box.classList.remove('correct', 'incorrect');
+                exp.classList.remove('show-correct', 'show-incorrect');
+
+                if (userAns === answerData.ans) {
+                    correctCount++;
+                    box.classList.add('correct');
+                    exp.classList.add('show-correct');
+                    exp.innerHTML = `✅ <strong>Jawaban Benar!</strong> ${answerData.exp}`;
+                } else {
+                    box.classList.add('incorrect');
+                    exp.classList.add('show-incorrect');
+                    exp.innerHTML = `❌ <strong>Salah!</strong> Jawaban benar: <strong>${answerData.ans}</strong>. ${answerData.exp}`;
+                }
+            }
+
+            const finalGrade = correctCount * 10;
+            sound.playSuccess();
+            const badge = document.getElementById('grade-badge');
+            badge.style.display = 'inline-block';
+            badge.textContent = `Nilai: ${finalGrade} / 100 (${correctCount}/10 Benar)`;
+            showToast(`✅ LKPD Selesai! Nilai Kamu: ${finalGrade}`);
+        });
+
+        document.getElementById('reset-lkpd-btn').addEventListener('click', () => {
+            sound.playClick();
+            document.querySelectorAll('.lkpd-q-box').forEach(box => {
+                box.classList.remove('correct', 'incorrect');
+            });
+            document.querySelectorAll('.lkpd-explanation').forEach(exp => {
+                exp.classList.remove('show-correct', 'show-incorrect');
+                exp.innerHTML = '';
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.getElementById('ans-q4').value = '';
+            document.getElementById('ans-q5').value = '';
+            document.getElementById('grade-badge').style.display = 'none';
+            showToast('LKPD Berhasil Di-reset');
+        });
+
+        /* --- TOAST HELPER --- */
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2600);
+        }
+    </script>
+</body>
+</html>
